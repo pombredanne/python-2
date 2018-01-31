@@ -13,9 +13,9 @@ def collect():
     # - always a directory, filename in setttings if necessary
     # - directory of file, doesn't matter
     # - will /repo be prefixed (why does it need to be? should always be working in /repo so path should be relative... leading / was why)
-    user_given_path_in_repo = sys.argv[1]
-    requirements_filename = os.getenv('SETTING_REQUIREMENTS_FILENAME', 'requirements.txt')
-    requirements_path = path.join(user_given_path_in_repo, requirements_filename)
+    requirements_path = sys.argv[1]
+    # requirements_filename = os.getenv('SETTING_REQUIREMENTS_FILENAME', 'requirements.txt')
+    # requirements_path = path.join(user_given_path_in_repo, requirements_filename)
 
     print(f'Collecting contents of {requirements_path}:')
     with open(requirements_path, 'r') as f:
@@ -94,6 +94,6 @@ def get_available_versions_for_dependency(name, specs):
         best_candidate = max(filtered_candidates, key=finder._candidate_sort_key)
 
     newer_versions = [c.version for c in all_candidates if c.version > best_candidate.version]
-    in_order = sorted(newer_versions)
+    in_order = sorted(set(newer_versions))
 
     return [str(x) for x in in_order]
