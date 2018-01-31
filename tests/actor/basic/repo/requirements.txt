@@ -1,0 +1,2 @@
+requests==2.11.1  # keeps comments too
+tox==2.6.0
