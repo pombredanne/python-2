@@ -8,6 +8,11 @@ import dparse
 
 
 def collect():
+
+    # TODO decide how this is going to work across the system:
+    # - always a directory, filename in setttings if necessary
+    # - directory of file, doesn't matter
+    # - will /repo be prefixed (why does it need to be? should always be working in /repo so path should be relative... leading / was why)
     user_given_path_in_repo = sys.argv[1]
     requirements_filename = os.getenv('SETTING_REQUIREMENTS_FILENAME', 'requirements.txt')
     requirements_path = path.join(user_given_path_in_repo, requirements_filename)
