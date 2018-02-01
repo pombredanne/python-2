@@ -1,6 +1,7 @@
 import os
 import json
 from subprocess import run
+import tempfile
 
 import dparse
 from dparse.updater import RequirementsTXTUpdater
@@ -42,11 +43,14 @@ def act():
         # TODO have pullrequest do this too?
         run(['git', 'push', '--set-upstream', 'origin', branch_name], check=True)
 
+    fp = tempfile.NamedTemporaryFile(delete=False)
+    fp.write(json.dumps(data).encode('utf-8'))
+    fp.close()
     run(
         [
             'pullrequest',
             '--branch', branch_name,
-            '--dependencies-json', json.dumps(data),
+            '--dependencies-json', fp.name,
         ],
         check=True
     )
