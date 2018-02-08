@@ -1,3 +1,4 @@
+import re
 import os
 import json
 from subprocess import run
@@ -20,6 +21,12 @@ def act():
         for dependency_name, updated_dependency_data in manifest_data['updated']['dependencies'].items():
             installed = manifest_data['current']['dependencies'][dependency_name]['constraint']
             version_to_update_to = updated_dependency_data['constraint']
+
+            # automatically prefix it with == if it looks like it is an exact version
+            # and wasn't prefixed already
+            if re.match('^\d', version_to_update_to):
+                version_to_update_to = '==' + version_to_update_to
+                manifest_data['updated']['dependencies'][dependency_name]['constraint'] = version_to_update_to
 
             with open(manifest_path, 'r') as f:
                 manifest_content = f.read()
