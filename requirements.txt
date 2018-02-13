@@ -1,1 +1,3 @@
-dparse==0.2.1
+-e git+https://github.com/pyupio/dparse@master#egg=dparse
+pipenv
+delegator
