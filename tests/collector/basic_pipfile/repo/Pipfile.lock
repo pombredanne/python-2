@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f4289104134a4c14c804a281c09c151a30c001bbc665b9f4c75f5c37d4845a9c"
+            "sha256": "d15a12caa52bf705d73843f4408e5fddd61fb328a7ecb8e20bddbf38d3f8f194"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -9,12 +9,12 @@
             "os_name": "posix",
             "platform_machine": "x86_64",
             "platform_python_implementation": "CPython",
-            "platform_release": "4.9.60-linuxkit-aufs",
-            "platform_system": "Linux",
-            "platform_version": "#1 SMP Mon Nov 6 16:00:12 UTC 2017",
+            "platform_release": "17.4.0",
+            "platform_system": "Darwin",
+            "platform_version": "Darwin Kernel Version 17.4.0: Sun Dec 17 09:19:54 PST 2017; root:xnu-4570.41.2~1/RELEASE_X86_64",
             "python_full_version": "3.6.4",
             "python_version": "3.6",
-            "sys_platform": "linux"
+            "sys_platform": "darwin"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -29,9 +29,9 @@
     "default": {
         "toml": {
             "hashes": [
-                "sha256:8e86bd6ce8cc11b9620cb637466453d94f5d57ad86f17e98a98d1f73e3baab2d"
+                "sha256:53dd619be5a027e9c8510dd492113f643df1cccc13188a8698914e51720a1a89"
             ],
-            "version": "==0.6.0"
+            "version": "==0.7.1"
         }
     },
     "develop": {}

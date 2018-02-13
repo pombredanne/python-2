@@ -2,41 +2,113 @@
   "lockfiles": {
     "Pipfile.lock": {
       "current": {
-        "fingerprint": "7caea5fe03d8f7bf36263110d35a8f64",
+        "fingerprint": "b3f45e9b2c0ca0d29b9423249e68013b",
         "dependencies": {
           "toml": {
-            "source": "pipenv-source",
-            "installed": {
-              "name": "==0.6.0"
-            }
+            "source": "pypi",
+            "constraint": "==0.7.1",
+            "available": [
+              {
+                "name": "0.8.0"
+              },
+              {
+                "name": "0.8.1"
+              },
+              {
+                "name": "0.8.2"
+              },
+              {
+                "name": "0.9.0"
+              },
+              {
+                "name": "0.9.1"
+              },
+              {
+                "name": "0.9.2"
+              },
+              {
+                "name": "0.9.3.1"
+              },
+              {
+                "name": "0.9.4"
+              }
+            ]
           }
         }
       },
       "updated": {
-        "fingerprint": "25fe1607869eb64c81ac8bdd76c3a88c",
+        "fingerprint": "26f2b531c159e759b216cc0c23d4b881",
         "dependencies": {
           "toml": {
-            "source": "pipenv-source",
-            "installed": {
-              "name": "==0.9.4"
-            }
+            "source": "pypi",
+            "constraint": "==0.7.1",
+            "available": [
+              {
+                "name": "0.8.0"
+              },
+              {
+                "name": "0.8.1"
+              },
+              {
+                "name": "0.8.2"
+              },
+              {
+                "name": "0.9.0"
+              },
+              {
+                "name": "0.9.1"
+              },
+              {
+                "name": "0.9.2"
+              },
+              {
+                "name": "0.9.3.1"
+              },
+              {
+                "name": "0.9.4"
+              }
+            ]
           }
         }
       }
     }
   },
   "manifests": {
-    "example_manifest.json": {
+    "Pipfile": {
       "current": {
         "dependencies": {
           "toml": {
-            "source": "pipenv-source",
-            "constraint": ">0.5.0",
-            "available": []
+            "source": "pypi",
+            "constraint": "<0.8.0",
+            "available": [
+              {
+                "name": "0.8.0"
+              },
+              {
+                "name": "0.8.1"
+              },
+              {
+                "name": "0.8.2"
+              },
+              {
+                "name": "0.9.0"
+              },
+              {
+                "name": "0.9.1"
+              },
+              {
+                "name": "0.9.2"
+              },
+              {
+                "name": "0.9.3.1"
+              },
+              {
+                "name": "0.9.4"
+              }
+            ]
           }
         }
       }
     }
   }
 }
-
