@@ -17,6 +17,27 @@ def act():
     run(['git', 'checkout', os.getenv('GIT_SHA')], check=True)
     run(['git', 'checkout', '-b', branch_name], check=True)
 
+    for lockfile_path, lockfile_data in data.get('lockfiles', {}).items():
+        # If "lockfiles" are present then it means that there are updates to
+        # those lockfiles that you can make. The most basic way to handle this
+        # is to use whatever "update" command is provided by the package
+        # manager, and then commit and push the entire update. You can try to be
+        # more granular than that if you want, but performing the entire "update"
+        # at once is an easier place to start.
+
+        # 1) Do the lockfile update
+        #    Since lockfile can change frequently, you'll want to "collect" the
+        #    exact update that you end up making, in case it changed slightly from
+        #    the original update that it was asked to make.
+        updated_lockfile_data = mock_lockfile_update(lockfile_path)
+        lockfile_data['updated']['dependencies'] = collect_lockfile_dependencies(updated_lockfile_data)
+        lockfile_data['updated']['fingerprint'] = get_lockfile_fingerprint(lockfile_path)
+
+        # 2) Add and commit the changes
+        run(['git', 'add', lockfile_path], check=True)
+        run(['git', 'commit', '-m', 'Update ' + lockfile_path], check=True)
+
+
     for manifest_path, manifest_data in data.get('manifests', {}).items():
         for dependency_name, updated_dependency_data in manifest_data['updated']['dependencies'].items():
             installed = manifest_data['current']['dependencies'][dependency_name]['constraint']
