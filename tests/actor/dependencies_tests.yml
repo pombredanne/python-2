@@ -8,4 +8,4 @@ cases:
   tests:
     - |
         git checkout deps/update-job-0 && \
-        diff -x '.git' ${CWD}/tests/actor/basic/repo_final/ ./
+        diff -x '.git' ${CWD}/tests/actor/basic_pip/repo_final/ ./
