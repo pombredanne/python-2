@@ -2,9 +2,9 @@ cases:
 - name: Without pip freeze
   type: actor
   dockerfile: Dockerfile
-  repo_contents: tests/actor/basic/repo
-  input_data_path: tests/actor/basic/input_data.json
-  output_data_path: tests/actor/basic/expected_output_data.json
+  repo_contents: tests/actor/basic_pip/repo
+  input_data_path: tests/actor/basic_pip/input_data.json
+  output_data_path: tests/actor/basic_pip/expected_output_data.json
   tests:
     - |
         git checkout deps/update-job-0 && \
