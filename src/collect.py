@@ -1,79 +1,152 @@
+import hashlib
 import os
-from os import path
+import shutil
 import json
 import sys
 import pip
 
 import dparse
+import delegator
 
 
 def collect():
 
-    # TODO decide how this is going to work across the system:
-    # - always a directory, filename in setttings if necessary
-    # - directory of file, doesn't matter
-    # - will /repo be prefixed (why does it need to be? should always be working in /repo so path should be relative... leading / was why)
-    requirements_path = sys.argv[1]
-    # requirements_filename = os.getenv('SETTING_REQUIREMENTS_FILENAME', 'requirements.txt')
-    # requirements_path = path.join(user_given_path_in_repo, requirements_filename)
+    # The first argument should be the manifest file
+    manifest_path = sys.argv[1]
+    manifest_filename = os.path.relpath(manifest_path, '/repo')
 
-    print(f'Collecting contents of {requirements_path}:')
-    with open(requirements_path, 'r') as f:
-        print(f.read())
+    manifest = Manifest(manifest_path)
+    print(f'Collecting contents of {manifest_filename}:')
+    print(manifest.content)
 
-    manifest_dependencies = collect_manifest_dependencies(requirements_path)
-
+    # Manifest Processing
     output = {
         'manifests': {
-            path.relpath(requirements_path, '/repo/'): {
+            manifest_filename: {
                 'current': {
-                    'dependencies': manifest_dependencies
+                    'dependencies': manifest.dio_dependencies()
                 }
             }
         }
     }
-
     print('<Dependencies>{}</Dependencies>'.format(json.dumps(output)))
 
 
-def collect_manifest_dependencies(manifest_path):
-    """Convert the manifest format to the dependencies schema"""
-    dependencies = {}
+    # Lockfile Processing
+    if manifest.has_lockfile():
+        lockfile_filename = 'Pipfile.lock'
+        lockfile_path = os.path.join(os.path.dirname(manifest_path), lockfile_filename)
+        lockfile = LockFile(lockfile_path)
+        print(f'Collecting contents of {lockfile_filename}:')
+        print(lockfile.content)
 
-    with open(manifest_path, 'r') as f:
-        manifest_content = f.read()
-
-    dependency_file = dparse.parse(content=manifest_content, path=manifest_path)
-
-    if not dependency_file.is_valid:
-        raise Exception(f'Unable to parse {manifest_path}')
-
-    for dep in dependency_file.dependencies:
-
-        # dep.extras...? should be same version constraint as parent, I would think
-
-        dependencies[dep.key] = {
-            'source': dep.source,
-            'constraint': str(dep.specs),
-            'available': [{'name': x} for x in get_available_versions_for_dependency(dep.key, dep.specs)],
+        current_fingerprint = lockfile.fingerprint()
+        current_dependencies = lockfile.dio_dependencies()
+        lockfile_output = {
+            'lockfiles': {
+                lockfile_filename: {
+                    'current': {
+                        'fingerprint': current_fingerprint,
+                        'dependencies': current_dependencies,
+                    }
+                }
+            }
         }
 
-    # final_data = {
-    #     'manifests': {
-    #         path.relpath('/repo/', manifest_path): dependencies
-    #     }
-    # }
-    #
-    # for p in dependency_file.resolved_files:
-    #     # -r includes
-    #     final_data.update(collect_manifest_dependencies(p))
-    #
-    # return final_data
+        lockfile.native_update() # use the native tools to update the lockfile
 
-    return dependencies
+        if current_fingerprint != lockfile.fingerprint():
+            lockfile_output['lockfiles'][lockfile_filename]['updated'] = {
+            'fingerprint': lockfile.fingerprint(),
+            'dependencies': lockfile.dio_dependencies(),
+        }
+
+        print('<Dependencies>{}</Dependencies>'.format(json.dumps(lockfile_output)))
+
+
+class Manifest:
+    REQUIREMENTS = 'requirements.txt'
+    PIPFILE = 'Pipfile'
+    PIPFILE_LOCK = 'Pipfile.lock'
+
+    def __init__(self, filename):
+        self.filename = filename
+        if filename.endswith(self.PIPFILE):
+            self.type = self.PIPFILE
+        elif filename.endswith(self.PIPFILE_LOCK):
+            self.type = self.PIPFILE_LOCK
+        else:
+            self.type = self.REQUIREMENTS
+
+        with open(self.filename, 'r') as f:
+            self.content = f.read()
+
+    def has_lockfile(self):
+        return self.type in [self.PIPFILE,]
+
+    def dependencies(self):
+        manifest_file = dparse.parse(content=self.content, path=self.filename)
+
+        if not manifest_file.is_valid:
+            raise Exception(f'Unable to parse {self.filename}')
+
+        return manifest_file.dependencies
+
+    def dio_dependencies(self):
+        "Return Dropseed.io formatted list of manifest dependencies"
+        dependencies = {}
+        for dep in self.dependencies():
+            dependencies[dep.key] = {
+                'source': dep.source,
+                'constraint': str(dep.specs),
+                'available': [{'name': x} for x in get_available_versions_for_dependency(dep.key, dep.specs)],
+            }
+
+        # final_data = {
+        #     'manifests': {
+        #         path.relpath('/repo/', manifest_path): dependencies
+        #     }
+        # }
+        #
+        # for p in dependency_file.resolved_files:
+        #     # -r includes
+        #     final_data.update(collect_manifest_dependencies(p))
+        #
+        # return final_data
+
+        return dependencies
+
+    def fingerprint(self):
+        return hashlib.md5(self.content.encode('utf-8')).hexdigest()
+
+
+class LockFile(Manifest):
+    def native_update(self):
+        print("Using the native tools to update the lockfile")
+        if self.type == self.PIPFILE_LOCK:
+            shutil.copyfile(self.filename, self.filename + ".old")
+
+            cmd = delegator.run("pipenv update --clear")
+            print(cmd.out)
+            with open(self.filename, 'r') as f:
+                self.content = f.read()
+
+            os.remove(self.filename)
+            os.rename(self.filename + ".old", self.filename)
+
+    def dio_dependencies(self):
+        "Return Dropseed.io formatted list of lockfile dependencies"
+        dependencies = {}
+        for dep in self.dependencies():
+            dependencies[dep.key] = {
+                'source': dep.source,
+                'installed': {'name': str(dep.specs)},
+            }
+        return dependencies
 
 
 def get_available_versions_for_dependency(name, specs):
+    # This uses the native pip library to do the package resolution
     # TODO figure out how to do this without mocking all these useless things...
     list_command = pip.commands.ListCommand()
     options, args = list_command.parse_args([])
