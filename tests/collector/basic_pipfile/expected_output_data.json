@@ -1,0 +1,42 @@
+{
+  "lockfiles": {
+    "Pipfile.lock": {
+      "current": {
+        "fingerprint": "7caea5fe03d8f7bf36263110d35a8f64",
+        "dependencies": {
+          "toml": {
+            "source": "pipenv-source",
+            "installed": {
+              "name": "==0.6.0"
+            }
+          }
+        }
+      },
+      "updated": {
+        "fingerprint": "25fe1607869eb64c81ac8bdd76c3a88c",
+        "dependencies": {
+          "toml": {
+            "source": "pipenv-source",
+            "installed": {
+              "name": "==0.9.4"
+            }
+          }
+        }
+      }
+    }
+  },
+  "manifests": {
+    "example_manifest.json": {
+      "current": {
+        "dependencies": {
+          "toml": {
+            "source": "pipenv-source",
+            "constraint": ">0.5.0",
+            "available": []
+          }
+        }
+      }
+    }
+  }
+}
+
