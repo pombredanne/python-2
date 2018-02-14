@@ -5,6 +5,7 @@ import json
 import sys
 import pip
 
+from dparse import updater
 import dparse
 import delegator
 
@@ -73,10 +74,13 @@ class Manifest:
         self.filename = filename
         if filename.endswith(self.PIPFILE):
             self.type = self.PIPFILE
+            self.filewriter = dparse.updater.PipfileUpdater
         elif filename.endswith(self.PIPFILE_LOCK):
             self.type = self.PIPFILE_LOCK
+            self.filewriter = dparse.updater.PipfileLockUpdater
         else:
             self.type = self.REQUIREMENTS
+            self.filewriter = dparse.updater.RequirementsTXTUpdater
 
         with open(self.filename, 'r') as f:
             self.content = f.read()
@@ -119,14 +123,19 @@ class Manifest:
     def fingerprint(self):
         return hashlib.md5(self.content.encode('utf-8')).hexdigest()
 
+    def updater(self, content, dependency, version, spec):
+        return self.filewriter.update(content=content, dependency=dependency, version=version, spec='')
+
 
 class LockFile(Manifest):
-    def native_update(self):
+    def native_update(self, dep=None):
         print("Using the native tools to update the lockfile")
         if self.type == self.PIPFILE_LOCK:
             shutil.copyfile(self.filename, self.filename + ".old")
 
-            cmd = delegator.run("pipenv update --clear")
+            dep = dep if dep else ''
+
+            cmd = delegator.run(f"pipenv update {dep} --clear")
             print(cmd.out)
             with open(self.filename, 'r') as f:
                 self.content = f.read()
