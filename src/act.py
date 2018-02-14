@@ -50,6 +50,9 @@ def act():
     for manifest_path, manifest_data in data.get('manifests', {}).items():
         for dependency_name, updated_dependency_data in manifest_data['updated']['dependencies'].items():
             manifest = Manifest(manifest_path)
+            print('~'*80 + '\n')
+            print(manifest.content)
+            print('='*80 + '\n')
             installed = manifest_data['current']['dependencies'][dependency_name]['constraint']
             version_to_update_to = updated_dependency_data['constraint']
 
@@ -66,6 +69,8 @@ def act():
                 version=version_to_update_to,
                 spec='',  # we'll have spec included in "version"
             )
+            print(updated_content)
+            print('-'*80 + '\n')
 
             with open(manifest_path, 'w+') as f:
                 f.write(updated_content)
