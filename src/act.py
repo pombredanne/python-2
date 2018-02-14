@@ -48,8 +48,8 @@ def act():
 
 
     for manifest_path, manifest_data in data.get('manifests', {}).items():
-        manifest = Manifest(manifest_path)
         for dependency_name, updated_dependency_data in manifest_data['updated']['dependencies'].items():
+            manifest = Manifest(manifest_path)
             installed = manifest_data['current']['dependencies'][dependency_name]['constraint']
             version_to_update_to = updated_dependency_data['constraint']
 
@@ -59,13 +59,9 @@ def act():
                 version_to_update_to = '==' + version_to_update_to
                 manifest_data['updated']['dependencies'][dependency_name]['constraint'] = version_to_update_to
 
-            with open(manifest_path, 'r') as f:
-                manifest_content = f.read()
-
-
             dependency = [x for x in manifest.dependencies() if x.key == dependency_name][0]
             updated_content = manifest.updater(
-                content=manifest_content,
+                content=manifest.content,
                 dependency=dependency,
                 version=version_to_update_to,
                 spec='',  # we'll have spec included in "version"
