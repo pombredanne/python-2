@@ -131,7 +131,7 @@ class LockFile(Manifest):
     def native_update(self, dep=None):
         print("Using the native tools to update the lockfile")
         if self.type == self.PIPFILE_LOCK:
-            shutil.copyfile(self.filename, self.filename + ".old")
+            # shutil.copyfile(self.filename, self.filename + ".old")
 
             dep = dep if dep else ''
 
@@ -140,8 +140,8 @@ class LockFile(Manifest):
             with open(self.filename, 'r') as f:
                 self.content = f.read()
 
-            os.remove(self.filename)
-            os.rename(self.filename + ".old", self.filename)
+            # os.remove(self.filename)
+            # os.rename(self.filename + ".old", self.filename)
 
     def dio_dependencies(self):
         "Return Dropseed.io formatted list of lockfile dependencies"

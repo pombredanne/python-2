@@ -9,3 +9,13 @@ cases:
     - |
         git checkout deps/update-job-0 && \
         diff -x '.git' ${CWD}/tests/actor/basic_pip/repo_final/ ./
+- name: Basic Pipfile
+  type: actor
+  dockerfile: Dockerfile
+  repo_contents: tests/actor/basic_pipfile/repo
+  input_data_path: tests/actor/basic_pipfile/input_data.json
+  output_data_path: tests/actor/basic_pipfile/expected_output_data.json
+  tests:
+    - |
+        git checkout deps/update-job-0 && \
+        diff -x '.git' ${CWD}/tests/actor/basic_pipfile/repo_final/ ./
