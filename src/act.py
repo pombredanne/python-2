@@ -5,7 +5,7 @@ from subprocess import run
 import tempfile
 
 import dparse
-from collect import Manifest, LockFile
+from facade import Manifest, LockFile
 
 
 def act():
@@ -62,8 +62,8 @@ def act():
             with open(manifest_path, 'r') as f:
                 manifest_content = f.read()
 
-            dependency_file = dparse.parse(content=manifest_content, path=manifest_path)
-            dependency = [x for x in dependency_file.dependencies if x.key == dependency_name][0]
+
+            dependency = [x for x in manifest.dependencies() if x.key == dependency_name][0]
             updated_content = manifest.updater(
                 content=manifest_content,
                 dependency=dependency,
