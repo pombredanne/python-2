@@ -1,0 +1,35 @@
+{
+  "PR #0": {
+    "dependencies": {
+      "lockfiles": {
+        "Pipfile.lock": {
+          "current": {
+            "dependencies": {
+              "toml": {
+                "installed": {
+                  "name": "==0.7.1"
+                },
+                "source": "pypi"
+              }
+            },
+            "fingerprint": "x"
+          },
+          "updated": {
+            "dependencies": {
+              "toml": {
+                "installed": {
+                  "name": "==0.8.0"
+                },
+                "source": "pypi"
+              }
+            },
+            "fingerprint": "e51a88121c4623cde338e5117e134213"
+          }
+        }
+      }
+    },
+    "metadata": {
+      "foo": "bar"
+    }
+  }
+}

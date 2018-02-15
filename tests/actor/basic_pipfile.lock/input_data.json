@@ -1,0 +1,28 @@
+{
+  "lockfiles": {
+    "Pipfile.lock": {
+      "current": {
+        "fingerprint": "x",
+        "dependencies": {
+          "toml": {
+            "source": "pypi",
+            "installed": {
+              "name": "==0.7.1"
+            }
+          }
+        }
+      },
+      "updated": {
+        "fingerprint": "x",
+        "dependencies": {
+          "toml": {
+            "source": "pypi",
+            "installed": {
+              "name": "==0.8.0"
+            }
+          }
+        }
+      }
+    }
+  }
+}
