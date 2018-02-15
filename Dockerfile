@@ -1,4 +1,4 @@
-FROM python:3.6-alpine
+FROM python:3.6.4-alpine
 
 RUN apk --no-cache add git wget
 
