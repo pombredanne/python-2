@@ -1,0 +1,16 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+dparse = {git = "https://github.com/pyupio/dparse", editable = true, ref = "8149c927f506dd2b194c20f8c948c5a1d6105ba5"}
+pipenv = "*"
+delegator = "*"
+
+
+[dev-packages]
+
