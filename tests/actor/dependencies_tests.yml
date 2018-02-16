@@ -19,7 +19,7 @@ cases:
     - |
         git checkout deps/update-job-0 && \
         diff -x '.git' ${CWD}/tests/actor/basic_pipfile/repo_final/ ./
-- name: Basic Pipfile.lock
+- name: basic pipfile.lock
   type: actor
   dockerfile: Dockerfile
   repo_contents: tests/actor/basic_pipfile.lock/repo
@@ -29,3 +29,13 @@ cases:
   #   - |
   #       git checkout deps/update-job-0 && \
   #       diff -x '.git' ${CWD}/tests/actor/basic_pipfile.lock/repo_final/ ./
+- name: pipfile.lock dev section
+  type: actor
+  dockerfile: Dockerfile
+  repo_contents: tests/actor/pipfile_dev_section.lock/repo
+  input_data_path: tests/actor/pipfile_dev_section.lock/input_data.json
+  output_data_path: tests/actor/pipfile_dev_section.lock/expected_output_data.json
+  # tests:
+  #   - |
+  #       git checkout deps/update-job-0 && \
+  #       diff -x '.git' ${CWD}/tests/actor/pipfile_dev_section.lock/repo_final/ ./
