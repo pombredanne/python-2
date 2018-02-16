@@ -27,7 +27,6 @@ def collect():
     }
     print('<Dependencies>{}</Dependencies>'.format(json.dumps(output)))
 
-
     # Lockfile Processing
     if manifest.has_lockfile():
         lockfile_filename = 'Pipfile.lock'
@@ -49,14 +48,12 @@ def collect():
             }
         }
 
-        lockfile.native_update() # use the native tools to update the lockfile
+        lockfile.native_update()  # use the native tools to update the lockfile
 
         if current_fingerprint != lockfile.fingerprint():
             lockfile_output['lockfiles'][lockfile_filename]['updated'] = {
-            'fingerprint': lockfile.fingerprint(),
-            'dependencies': lockfile.dio_dependencies(),
-        }
+                'fingerprint': lockfile.fingerprint(),
+                'dependencies': lockfile.dio_dependencies(),
+            }
 
         print('<Dependencies>{}</Dependencies>'.format(json.dumps(lockfile_output)))
-
-
