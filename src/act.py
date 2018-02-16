@@ -4,7 +4,7 @@ import json
 from subprocess import run
 import tempfile
 
-from facade import Manifest, LockFile
+from models import Manifest, LockFile
 
 
 def act():

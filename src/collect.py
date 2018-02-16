@@ -2,7 +2,7 @@ import os
 import json
 import sys
 
-from facade import Manifest, LockFile
+from models import Manifest, LockFile
 
 
 def collect():
