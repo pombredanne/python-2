@@ -25,7 +25,7 @@ cases:
   repo_contents: tests/actor/basic_pipfile.lock/repo
   input_data_path: tests/actor/basic_pipfile.lock/input_data.json
   output_data_path: tests/actor/basic_pipfile.lock/expected_output_data.json
-  tests:
-    - |
-        git checkout deps/update-job-0 && \
-        diff -x '.git' ${CWD}/tests/actor/basic_pipfile.lock/repo_final/ ./
+  # tests:
+  #   - |
+  #       git checkout deps/update-job-0 && \
+  #       diff -x '.git' ${CWD}/tests/actor/basic_pipfile.lock/repo_final/ ./
