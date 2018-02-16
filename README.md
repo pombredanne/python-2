@@ -4,7 +4,9 @@
 [![Build Status](https://travis-ci.org/dependencies-io/python-pip.svg?branch=master)](https://travis-ci.org/dependencies-io/python-pip)
 [![license](https://img.shields.io/github/license/dependencies-io/python-pip.svg)](https://github.com/dependencies-io/python-pip/blob/master/LICENSE)
 
-A [dependencies.io](https://www.dependencies.io) component that...
+A [dependencies.io](https://www.dependencies.io) component that provides both "collector" and "actor" functionality
+for Python projects that use "requirements.txt" files or [Pipfiles](https://github.com/pypa/pipfile) for tracking
+project dependencies.
 
 ## Usage
 
@@ -19,7 +21,9 @@ TODO
 
 ## Resources
 
-- TODO links to inspiration or helpful related resources
+- [dparse](https://github.com/pyupio/dparse) is used as a generic requirements parsing library
+- [pipfile](https://github.com/pypa/pipfile) original github project
+
 
 ## Support
 
