@@ -4,7 +4,6 @@ import json
 from subprocess import run
 import tempfile
 
-import dparse
 from facade import Manifest, LockFile
 
 

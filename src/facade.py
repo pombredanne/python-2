@@ -1,6 +1,4 @@
 import hashlib
-import os
-import shutil
 import pip
 import json
 
