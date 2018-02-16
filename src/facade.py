@@ -39,7 +39,7 @@ class Manifest:
         return manifest_file.dependencies
 
     def dio_dependencies(self):
-        "Return Dropseed.io formatted list of manifest dependencies"
+        "Return dependencies.io formatted list of manifest dependencies"
         dependencies = {}
         for dep in self.dependencies():
             dependencies[dep.key] = {
@@ -81,7 +81,7 @@ class LockFile(Manifest):
                 self.content = f.read()
 
     def dio_dependencies(self):
-        "Return Dropseed.io formatted list of lockfile dependencies"
+        "Return dependencies.io formatted list of lockfile dependencies"
         dependencies = {}
         for dep in self.dependencies():
             dependencies[dep.key] = {
