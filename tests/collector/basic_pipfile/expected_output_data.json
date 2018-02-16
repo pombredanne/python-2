@@ -2,26 +2,15 @@
   "lockfiles": {
     "Pipfile.lock": {
       "current": {
-        "fingerprint": "b3f45e9b2c0ca0d29b9423249e68013b",
         "dependencies": {
           "toml": {
-            "source": "pypi",
             "installed": {
               "name": "==0.7.1"
-            }
+            },
+            "source": "pypi"
           }
-        }
-      },
-      "updated": {
-        "fingerprint": "26f2b531c159e759b216cc0c23d4b881",
-        "dependencies": {
-          "toml": {
-            "source": "pypi",
-            "installed": {
-              "name": "==0.7.1"
-            }
-          }
-        }
+        },
+        "fingerprint": "d15a12caa52bf705d73843f4408e5fddd61fb328a7ecb8e20bddbf38d3f8f194"
       }
     }
   },
@@ -30,8 +19,6 @@
       "current": {
         "dependencies": {
           "toml": {
-            "source": "pypi",
-            "constraint": "<0.8.0",
             "available": [
               {
                 "name": "0.8.0"
@@ -57,7 +44,9 @@
               {
                 "name": "0.9.4"
               }
-            ]
+            ],
+            "constraint": "<0.8.0",
+            "source": "pypi"
           }
         }
       }

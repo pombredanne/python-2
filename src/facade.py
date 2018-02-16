@@ -2,6 +2,7 @@ import hashlib
 import os
 import shutil
 import pip
+import json
 
 from dparse import updater
 import dparse
@@ -95,6 +96,23 @@ class LockFile(Manifest):
                 'installed': {'name': str(dep.specs)},
             }
         return dependencies
+
+    def fingerprint(self):
+        if self.type == self.PIPFILE_LOCK:
+            # Pipfile.lock stores its own hash, so we will use that
+            # instead of computing our own.
+            #
+            # If we compute our own (hashing the file) then we're likely to get
+            # get misleading results since Pipfile.lock contains info about
+            # the platform the command was run on. This will differ from the user
+            # to us (and between users/machines/etc.) so we can't rely on that
+            # as the fingerprint for the update. If we did, we'd likely send
+            # a bunch of updates that only change the meta info in Pipfile.lock.
+            with open(self.filename, 'r') as f:
+                pipfile_data = json.load(f)
+                return pipfile_data['_meta']['hash']['sha256']
+
+        return super().fingerprint()
 
 
 def get_available_versions_for_dependency(name, specs):
