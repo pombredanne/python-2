@@ -19,6 +19,8 @@ are available, specifics about how it is going to work, etc.).
 TODO
 ```
 
+# TODO link to settings made available via deps
+
 ## Resources
 
 - [dparse](https://github.com/pyupio/dparse) is used as a generic requirements parsing library

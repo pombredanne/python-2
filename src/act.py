@@ -11,10 +11,8 @@ def act():
     with open('/dependencies/input_data.json', 'r') as f:
         data = json.load(f)
 
-    # TODO `pullrequest start` could do this, take care of safe branch names, naming consistency, etc.
-    branch_name = 'deps/update-job-{}'.format(os.getenv('JOB_ID'))
-    run(['git', 'checkout', os.getenv('GIT_SHA')], check=True)
-    run(['git', 'checkout', '-b', branch_name], check=True)
+    # create a new branch for this update
+    run(['deps', 'branch'], check=True)
 
     for lockfile_path, lockfile_data in data.get('lockfiles', {}).items():
         # If "lockfiles" are present then it means that there are updates to
@@ -42,8 +40,7 @@ def act():
         lockfile_data['updated']['fingerprint'] = lockfile.fingerprint()
 
         # 2) Add and commit the changes
-        run(['git', 'add', lockfile_path], check=True)
-        run(['git', 'commit', '-m', 'Update ' + lockfile_path], check=True)
+        run(['deps', 'commit', '-m', 'Update ' + lockfile_path, lockfile_path], check=True)
 
 
     for manifest_path, manifest_data in data.get('manifests', {}).items():
@@ -74,21 +71,9 @@ def act():
             with open(manifest_path, 'w+') as f:
                 f.write(updated_content)
 
-            run(['git', 'add', manifest_path], check=True)
-            run(['git', 'commit', '-m', 'Update {} from {} to {}'.format(dependency_name, installed, version_to_update_to)], check=True)
-
-    if os.getenv('DEPENDENCIES_ENV') != 'test':
-        # TODO have pullrequest do this too?
-        run(['git', 'push', '--set-upstream', 'origin', branch_name], check=True)
+            run(['deps', 'commit', '-m', 'Update {} from {} to {}'.format(dependency_name, installed, version_to_update_to), manifest_path], check=True)
 
     fp = tempfile.NamedTemporaryFile(delete=False)
     fp.write(json.dumps(data).encode('utf-8'))
     fp.close()
-    run(
-        [
-            'pullrequest',
-            '--branch', branch_name,
-            '--dependencies-json', fp.name,
-        ],
-        check=True
-    )
+    run(['deps', 'pullrequest', fp.name], check=True)

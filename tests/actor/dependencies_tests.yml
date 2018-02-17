@@ -7,7 +7,7 @@ cases:
   output_data_path: tests/actor/basic_pip/expected_output_data.json
   tests:
     - |
-        git checkout deps/update-job-0 && \
+        git checkout deps/update-0 && \
         diff -x '.git' ${CWD}/tests/actor/basic_pip/repo_final/ ./
 - name: Basic Pipfile
   type: actor
@@ -17,7 +17,7 @@ cases:
   output_data_path: tests/actor/basic_pipfile/expected_output_data.json
   tests:
     - |
-        git checkout deps/update-job-0 && \
+        git checkout deps/update-0 && \
         diff -x '.git' ${CWD}/tests/actor/basic_pipfile/repo_final/ ./
 - name: basic pipfile.lock
   type: actor
@@ -27,7 +27,7 @@ cases:
   output_data_path: tests/actor/basic_pipfile.lock/expected_output_data.json
   # tests:
   #   - |
-  #       git checkout deps/update-job-0 && \
+  #       git checkout deps/update-0 && \
   #       diff -x '.git' ${CWD}/tests/actor/basic_pipfile.lock/repo_final/ ./
 - name: pipfile.lock dev section
   type: actor
@@ -37,5 +37,5 @@ cases:
   output_data_path: tests/actor/pipfile_dev_section.lock/expected_output_data.json
   # tests:
   #   - |
-  #       git checkout deps/update-job-0 && \
+  #       git checkout deps/update-0 && \
   #       diff -x '.git' ${CWD}/tests/actor/pipfile_dev_section.lock/repo_final/ ./
