@@ -43,7 +43,6 @@
             "source": "pypi"
           },
           "pylibmc": {
-            "available": [],
             "constraint": "==1.5.2",
             "source": "pypi"
           },

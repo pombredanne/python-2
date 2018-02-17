@@ -5,6 +5,7 @@ from subprocess import run
 import tempfile
 
 from models import Manifest, LockFile
+from utils import write_json_to_temp_file
 
 
 def act():
@@ -73,7 +74,4 @@ def act():
 
             run(['deps', 'commit', '-m', 'Update {} from {} to {}'.format(dependency_name, installed, version_to_update_to), manifest_path], check=True)
 
-    fp = tempfile.NamedTemporaryFile(delete=False)
-    fp.write(json.dumps(data).encode('utf-8'))
-    fp.close()
-    run(['deps', 'pullrequest', fp.name], check=True)
+    run(['deps', 'pullrequest', write_json_to_temp_file(data)], check=True)
