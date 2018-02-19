@@ -70,6 +70,9 @@ class Manifest:
 
 
 class LockFile(Manifest):
+    def strip_version_str(self, version_str):
+        return version_str.lstrip('=')
+
     def native_update(self, dep=None):
         print("Using the native tools to update the lockfile")
         if self.type == self.PIPFILE_LOCK:
@@ -86,7 +89,7 @@ class LockFile(Manifest):
         for dep in self.dependencies():
             dependencies[dep.key] = {
                 'source': dep.source,
-                'installed': {'name': str(dep.specs)},
+                'installed': {'name': self.strip_version_str(str(dep.specs))},
             }
         return dependencies
 
