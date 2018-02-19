@@ -5,7 +5,7 @@
         "dependencies": {
           "toml": {
             "installed": {
-              "name": "==0.7.1"
+              "name": "0.7.1"
             },
             "source": "pypi"
           }
