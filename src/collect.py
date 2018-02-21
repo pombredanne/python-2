@@ -29,6 +29,7 @@ def collect():
 
     # Lockfile Processing
     if manifest.has_lockfile():
+        direct_deps = [dep.key for dep in manifest.dependencies()]
         lockfile_filename = 'Pipfile.lock'
         lockfile_path = os.path.join(os.path.dirname(manifest_path), lockfile_filename)
         lockfile = LockFile(lockfile_path)
@@ -36,7 +37,7 @@ def collect():
         print(lockfile.content)
 
         current_fingerprint = lockfile.fingerprint()
-        current_dependencies = lockfile.dio_dependencies()
+        current_dependencies = lockfile.dio_dependencies(direct_dependencies=direct_deps)
         lockfile_output = {
             'lockfiles': {
                 lockfile_filename: {
@@ -53,7 +54,7 @@ def collect():
         if current_fingerprint != lockfile.fingerprint():
             lockfile_output['lockfiles'][lockfile_filename]['updated'] = {
                 'fingerprint': lockfile.fingerprint(),
-                'dependencies': lockfile.dio_dependencies(),
+                'dependencies': lockfile.dio_dependencies(direct_dependencies=direct_deps),
             }
 
         print('<Dependencies>{}</Dependencies>'.format(json.dumps(lockfile_output)))

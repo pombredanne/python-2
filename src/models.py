@@ -83,7 +83,7 @@ class LockFile(Manifest):
             with open(self.filename, 'r') as f:
                 self.content = f.read()
 
-    def dio_dependencies(self):
+    def dio_dependencies(self, direct_dependencies=None):
         "Return dependencies.io formatted list of lockfile dependencies"
         dependencies = {}
         for dep in self.dependencies():
@@ -91,6 +91,9 @@ class LockFile(Manifest):
                 'source': dep.source,
                 'installed': {'name': self.strip_version_str(str(dep.specs))},
             }
+            if direct_dependencies:
+                dependencies[dep.key]['is_transitive'] = True if dep.key not in direct_dependencies else False
+
         return dependencies
 
     def fingerprint(self):
