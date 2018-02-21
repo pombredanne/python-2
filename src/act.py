@@ -4,10 +4,13 @@ import json
 from subprocess import run
 import tempfile
 
-from models import Manifest, LockFile
+from models import Manifest, LockFile, get_config_settings
 
 
 def act():
+    # Get any special configuration passed in from the configuration yaml as ENV vars
+    conf = get_config_settings()
+
     with open('/dependencies/input_data.json', 'r') as f:
         data = json.load(f)
 
