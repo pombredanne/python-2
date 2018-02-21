@@ -20,3 +20,13 @@ cases:
   output_data_path: tests/collector/pipfile_dev_section/expected_output_data.json
   user_config:
     path: Pipfile
+- name: pipfile ignore dev section
+  type: collector
+  dockerfile: Dockerfile
+  repo_contents: tests/collector/pipfile_ignore_dev_section/repo
+  output_data_path: tests/collector/pipfile_ignore_dev_section/expected_output_data.json
+  user_config:
+    path: Pipfile
+    settings:
+      pipfile_sections:
+        - packages
