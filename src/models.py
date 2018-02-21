@@ -76,9 +76,12 @@ class LockFile(Manifest):
     def native_update(self, dep=None):
         print("Using the native tools to update the lockfile")
         if self.type == self.PIPFILE_LOCK:
-            dep = dep if dep else ''
-
-            cmd = delegator.run(f"pipenv update {dep} --clear")
+            if dep:
+                cmd_line = "pipenv update --clear {dep}".format(dep=dep)
+            else:
+                cmd_line = "pipenv update --clear".format(dep=dep)
+            print(cmd_line)
+            cmd = delegator.run(cmd_line)
             print(cmd.out)
             with open(self.filename, 'r') as f:
                 self.content = f.read()
@@ -111,7 +114,7 @@ class LockFile(Manifest):
                 pipfile_data = json.load(f)
                 return pipfile_data['_meta']['hash']['sha256']
 
-        return super().fingerprint()
+        return super(LockFile, self).fingerprint()
 
 
 def get_available_versions_for_dependency(name, specs):

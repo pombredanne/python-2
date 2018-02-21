@@ -24,15 +24,22 @@ def act():
         # more granular than that if you want, but performing the entire "update"
         # at once is an easier place to start.
 
-        # Granular
-        # for dep_name, dep_data in lockfile_data['updated']['dependencies'].items():
-        #     lockfile = LockFile(lockfile_path)
-        #     # pipenv update {dep_name}
-        #     lockfile.native_update(dep_name)
+        # Granular, package by package upgrades
+        for dep_name, dep_data in lockfile_data['updated']['dependencies'].items():
+            lockfile = LockFile(lockfile_path)
+            dep_version = dep_data['installed']['name']
 
-        # All at once
-        lockfile = LockFile(lockfile_path)
-        lockfile.native_update()
+            # Prefix the version with "==" automatically if it (shouldn't) have it
+            if re.match('^\d', dep_version):
+                dep_version = '==' + dep_version
+            run(['pipenv', 'install', '{dep_name}{dep_version}'.format(dep_name=dep_name, dep_version=dep_version)])
+            dep_name_ver = '{dep_name}{dep_version}'.format(dep_name=dep_name, dep_version=dep_version)
+            lockfile.native_update(dep_name_ver)
+
+        # # All at once
+        # lockfile = LockFile(lockfile_path)
+        # lockfile.native_update()
+
         # 1) Do the lockfile update
         #    Since lockfile can change frequently, you'll want to "collect" the
         #    exact update that you end up making, in case it changed slightly from
