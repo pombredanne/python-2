@@ -9,16 +9,15 @@ def collect():
 
     # The first argument should be the manifest file
     manifest_path = sys.argv[1]
-    manifest_filename = os.path.relpath(manifest_path, '/repo')
 
     manifest = Manifest(manifest_path)
-    print(f'Collecting contents of {manifest_filename}:')
+    print(f'Collecting contents of {manifest_path}:')
     print(manifest.content)
 
     # Manifest Processing
     output = {
         'manifests': {
-            manifest_filename: {
+            manifest_path: {
                 'current': {
                     'dependencies': manifest.dio_dependencies()
                 }
