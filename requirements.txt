@@ -1,3 +1,3 @@
--e git+https://github.com/pyupio/dparse@8149c927f506dd2b194c20f8c948c5a1d6105ba5#egg=dparse
+-e git+https://github.com/pyupio/dparse@07b6912969db8b86b78f94fa634f0b3e05724fc4#egg=dparse
 pipenv
 delegator

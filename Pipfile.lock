@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "48a8303b2498dbee79699048094f325f294079304fe5572f7b9cc7fda58e1fb9"
+            "sha256": "7b4376e701f4a8ac88a353c531888d750e4e95776d9139cf044fa648f6b12752"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -17,7 +17,9 @@
             "sys_platform": "darwin"
         },
         "pipfile-spec": 6,
-        "requires": {},
+        "requires": {
+            "python_version": "3.6"
+        },
         "sources": [
             {
                 "name": "pypi",
@@ -89,9 +91,9 @@
         },
         "pipenv": {
             "hashes": [
-                "sha256:6c9b9d8e551a3086fc8300e18f93336fabbe3d8b9743dd1145e50a766f60e8f1"
+                "sha256:df37f03f84e8e7dd0ea1166d3e4bbd505332cdc1f5b10feb1435d52506f0c670"
             ],
-            "version": "==9.0.3"
+            "version": "==9.1.0"
         },
         "pycodestyle": {
             "hashes": [

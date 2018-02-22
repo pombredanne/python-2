@@ -7,13 +7,13 @@
             "dependencies": {
               "delegator": {
                 "installed": {
-                  "name": "==0.0.2"
+                  "name": "0.0.2"
                 },
                 "source": "pypi"
               },
               "toml": {
                 "installed": {
-                  "name": "==0.7.1"
+                  "name": "0.7.1"
                 },
                 "source": "pypi"
               }
@@ -24,18 +24,18 @@
             "dependencies": {
               "delegator": {
                 "installed": {
-                  "name": "==0.0.3"
+                  "name": "0.0.3"
                 },
                 "source": "pypi"
               },
               "toml": {
                 "installed": {
-                  "name": "==0.8.0"
+                  "name": "0.8.0"
                 },
                 "source": "pypi"
               }
             },
-            "fingerprint": "eb7f13dd035acd94fad72da2d9f14508bf0262869e0be0698563c397109a82ba"
+            "fingerprint": "0c68d72ba1c2efb5a361ac8df8b302a8534937ed74bf8570005110d6de0b5b44"
           }
         }
       }
