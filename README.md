@@ -10,31 +10,29 @@ project dependencies.
 
 ## Usage
 
-TODO plainly explain anything a user needs to know to use this (what settings
-are available, specifics about how it is going to work, etc.).
 
-In addition to the standard settings for actors/collectors, this module has some specific configuration available when 
-using a Pipfile and Pipfile.lock as the dependency source. 
+### Pipfile Support
 
-Pipfiles are expected to have all the requirements of a project for development, production, testing, etc all
+In addition to the standard settings for actors and collectors, this module has some specific configuration available 
+when using a Pipfile and Pipfile.lock as the dependency source. 
+
+Pipfiles are expected to have all the requirements of a project for development, production, testing, etc. 
 listed in a single file, unlike the requirements.txt convention where production and development requirements are
-often split into different files.  Thus, it is necessary to have the ability to configure which sections of the
+often split into different files.  Thus, it is often desirable to have the ability to configure which sections of the
 file should be considered for management by dependencies.io.  The default will be to include both of the standard
-sections of the Pipfile.  This setting can be configured to eliminate a section or to possibly add a custom
-section name.  It is possible to change the setting for either Pipfile or Pipfile.lock independently, but in all 
+sections of the Pipfile and Pipfile.lock.  These settings can be configured to eliminate a section or to possibly add a 
+custom section name.  It is possible to change the settings for either Pipfile or Pipfile.lock independently, but in all 
 likelihood they will be changed in tandem.
 
 
-### dependencies.yml
+An example dependencies.yml excluding the development packages in Pipfile and Pipfile.lock would include the settings:
 
-```yml
+```yaml
     settings:
         pipfile_sections:
             - packages
-            - dev-packages
         pipfilelock_sections:
             - default
-            - develop
 ```
 
 ## Resources
