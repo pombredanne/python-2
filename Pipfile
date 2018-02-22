@@ -9,7 +9,7 @@ python_version = '3.6'
 
 [packages]
 
-dparse = {git = "https://github.com/pyupio/dparse", editable = true, ref = "8149c927f506dd2b194c20f8c948c5a1d6105ba5"}
+dparse = {git = "https://github.com/paulortman/dparse", editable = true, ref = "b38113da6a5d1de97949ac358ba54ffee1399d3c"}
 pipenv = "*"
 delegator = "*"
 
