@@ -3,13 +3,6 @@
     "Pipfile.lock": {
       "current": {
         "dependencies": {
-          "delegator": {
-            "installed": {
-              "name": "0.0.2"
-            },
-            "is_transitive": true,
-            "source": "pypi"
-          },
           "toml": {
             "installed": {
               "name": "0.7.1"

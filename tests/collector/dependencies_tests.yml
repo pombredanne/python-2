@@ -30,3 +30,12 @@ cases:
     settings:
       pipfile_sections:
         - packages
+      pipfilelock_sections:
+        - default
+- name: pipfile transitive
+  type: collector
+  dockerfile: Dockerfile
+  repo_contents: tests/collector/pipfile_transitive/repo
+  output_data_path: tests/collector/pipfile_transitive/expected_output_data.json
+  user_config:
+    path: Pipfile

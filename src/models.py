@@ -43,8 +43,10 @@ class Manifest:
         return manifest_file.dependencies
 
     def dependencies(self):
-        if self.type in [self.PIPFILE,]:
+        if self.type == self.PIPFILE:
             return [d for d in self.raw_dependencies() if d.section in self.conf['pipfile_sections']]
+        if self.type == self.PIPFILE_LOCK:
+            return [d for d in self.raw_dependencies() if d.section in self.conf['pipfilelock_sections']]
 
         return self.raw_dependencies()
 
@@ -99,7 +101,7 @@ class LockFile(Manifest):
     def dio_dependencies(self, direct_dependencies=None):
         "Return dependencies.io formatted list of lockfile dependencies"
         dependencies = {}
-        for dep in self.raw_dependencies():
+        for dep in self.dependencies():
             dependencies[dep.key] = {
                 'source': dep.source,
                 'installed': {'name': self.strip_version_str(str(dep.specs))},
@@ -166,10 +168,17 @@ def get_config_settings():
     # section name.
     #
     # pipfile_sections:
+    #    - packages
+    #    - dev-packages
+    # pipfilelock_sections:
     #    - default
     #    - develop
     SETTING_PIPFILE_SECTIONS = os.getenv("SETTING_PIPFILE_SECTIONS", '["packages", "dev-packages"]')
     print("SETTING_PIPFILE_SECTIONS = {setting}".format(setting=SETTING_PIPFILE_SECTIONS))
     conf['pipfile_sections'] = json.loads(SETTING_PIPFILE_SECTIONS)
+
+    SETTING_PIPFILELOCK_SECTIONS = os.getenv("SETTING_PIPFILELOCK_SECTIONS", '["default", "develop"]')
+    print("SETTING_PIPFILELOCK_SECTIONS = {setting}".format(setting=SETTING_PIPFILELOCK_SECTIONS))
+    conf['pipfilelock_sections'] = json.loads(SETTING_PIPFILELOCK_SECTIONS)
 
     return conf
