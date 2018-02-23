@@ -13,6 +13,7 @@ class Manifest:
     REQUIREMENTS = 'requirements.txt'
     PIPFILE = 'Pipfile'
     PIPFILE_LOCK = 'Pipfile.lock'
+    TOX = 'tox.ini'
 
     def __init__(self, filename):
         self.filename = filename
@@ -22,6 +23,9 @@ class Manifest:
         elif filename.endswith(self.PIPFILE_LOCK):
             self.type = self.PIPFILE_LOCK
             self.filewriter = dparse.updater.PipfileLockUpdater
+        elif filename.endswith(self.TOX):
+            self.type = self.TOX
+            self.filewriter = dparse.updater.ToxINIUpdater
         else:
             self.type = self.REQUIREMENTS
             self.filewriter = dparse.updater.RequirementsTXTUpdater

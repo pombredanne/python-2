@@ -13,6 +13,13 @@ cases:
   output_data_path: tests/collector/basic_pipfile/expected_output_data.json
   user_config:
     path: Pipfile
+- name: basic tox
+  type: collector
+  dockerfile: Dockerfile
+  repo_contents: tests/collector/basic_tox/repo
+  output_data_path: tests/collector/basic_tox/expected_output_data.json
+  user_config:
+    path: tox.ini
 - name: pipfile dev section
   type: collector
   dockerfile: Dockerfile
@@ -39,3 +46,4 @@ cases:
   output_data_path: tests/collector/pipfile_transitive/expected_output_data.json
   user_config:
     path: Pipfile
+
