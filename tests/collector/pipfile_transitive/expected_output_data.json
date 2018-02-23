@@ -28,7 +28,6 @@
             "installed": {
               "name": "2.18.1"
             },
-            "is_transitive": false,
             "source": "pypi"
           },
           "urllib3": {
