@@ -35,6 +35,8 @@ An example dependencies.yml excluding the development packages in Pipfile and Pi
             - default
 ```
 
+# TODO link to settings made available via deps
+
 ## Resources
 
 - [dparse](https://github.com/pyupio/dparse) is used as a generic requirements parsing library

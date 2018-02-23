@@ -1,8 +1,10 @@
 import os
 import json
 import sys
+from subprocess import run
 
 from models import Manifest, LockFile
+from utils import write_json_to_temp_file
 
 
 def collect():
@@ -24,7 +26,7 @@ def collect():
             }
         }
     }
-    print('<Dependencies>{}</Dependencies>'.format(json.dumps(output)))
+    run(['deps', 'collect', write_json_to_temp_file(output)], check=True)
 
     # Lockfile Processing
     if manifest.has_lockfile():
@@ -56,4 +58,4 @@ def collect():
                 'dependencies': lockfile.dio_dependencies(direct_dependencies=direct_deps),
             }
 
-        print('<Dependencies>{}</Dependencies>'.format(json.dumps(lockfile_output)))
+        run(['deps', 'collect', write_json_to_temp_file(lockfile_output)], check=True)
