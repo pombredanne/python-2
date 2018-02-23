@@ -1,8 +1,4 @@
-# python
-
-[![Docker](https://img.shields.io/badge/dockerhub-python--pip-22B8EB.svg)](https://hub.docker.com/r/dependencies/python/)
-[![Build Status](https://travis-ci.org/dependencies-io/python.svg?branch=master)](https://travis-ci.org/dependencies-io/python)
-[![license](https://img.shields.io/github/license/dependencies-io/python.svg)](https://github.com/dependencies-io/python/blob/master/LICENSE)
+# python [![Build Status](https://travis-ci.org/dependencies-io/python.svg?branch=master)](https://travis-ci.org/dependencies-io/python)
 
 A [dependencies.io](https://www.dependencies.io) component that provides both "collector" and "actor" functionality
 for Python projects that use "requirements.txt" files or [Pipfiles](https://github.com/pypa/pipfile) for tracking
@@ -35,7 +31,7 @@ An example dependencies.yml excluding the development packages in Pipfile and Pi
             - default
 ```
 
-# TODO link to settings made available via deps
+TODO link to settings made available via deps
 
 ## Resources
 
