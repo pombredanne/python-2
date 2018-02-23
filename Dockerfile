@@ -16,7 +16,7 @@ RUN pip install --upgrade pip && pip install -r /usr/src/app/requirements.txt
 
 # add the pullrequest utility to easily create pull requests on different git hosts
 WORKDIR /usr/src/app
-ENV DEPS_VERSION=2.0.0-alpha.18
+ENV DEPS_VERSION=2.0.1
 RUN wget https://github.com/dependencies-io/deps/releases/download/${DEPS_VERSION}/deps_${DEPS_VERSION}_linux_amd64.tar.gz && \
     mkdir deps && \
     tar -zxvf deps_${DEPS_VERSION}_linux_amd64.tar.gz -C deps && \
