@@ -6,3 +6,4 @@
 
 # dependencies-cli test cache
 .cache
+.pytest_cache
