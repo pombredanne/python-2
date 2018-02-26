@@ -1,0 +1,10 @@
+version: 2
+collectors:
+
+- type: dependencies-component
+
+- type: dockerfile
+  path: Dockerfile
+
+- type: python
+  path: Pipfile

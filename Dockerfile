@@ -11,11 +11,15 @@ RUN adduser -D -u 9000 app && \
     mkdir /usr/src/app && \
     chown -R app:app /usr/src/app
 
-ADD requirements.txt /usr/src/app/
-RUN pip install --upgrade pip && pip install -r /usr/src/app/requirements.txt
+WORKDIR /usr/src/app
+
+# install an initial version of pipenv, which Pipfile.lock will overwite with
+# a more specific version
+RUN pip install --upgrade pip && pip install pipenv
+ADD Pipfile Pipfile.lock /usr/src/app/
+RUN pipenv install --system --verbose
 
 # add the pullrequest utility to easily create pull requests on different git hosts
-WORKDIR /usr/src/app
 ENV DEPS_VERSION=2.0.1
 RUN wget https://github.com/dependencies-io/deps/releases/download/${DEPS_VERSION}/deps_${DEPS_VERSION}_linux_amd64.tar.gz && \
     mkdir deps && \
