@@ -81,6 +81,6 @@ def act():
             with open(manifest_path, 'w+') as f:
                 f.write(updated_content)
 
-            run(['deps', 'commit', '-m', 'Update {} from {} to {}'.format(dependency_name, installed, version_to_update_to), manifest_path], check=True)
+            run(['deps', 'commit', '-m', 'Update {} from {} to {}'.format(dependency_name, installed, updated_dependency_data['constraint']), manifest_path], check=True)
 
     run(['deps', 'pullrequest', write_json_to_temp_file(data)], check=True)
