@@ -54,9 +54,15 @@ class Manifest:
         "Return dependencies.io formatted list of manifest dependencies"
         dependencies = {}
         for dep in self.dependencies():
+            constraint = str(dep.specs)
+
+            # report exact versions without the leading "=="
+            if constraint.startswith('==') and not constraint.startswith('==='):
+                constraint = constraint[2:]
+
             dependencies[dep.key] = {
                 'source': dep.source,
-                'constraint': str(dep.specs),
+                'constraint': constraint,
                 'available': [{'name': x} for x in get_available_versions_for_dependency(dep.key, dep.specs)],
             }
 

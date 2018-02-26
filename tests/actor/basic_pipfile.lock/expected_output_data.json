@@ -8,26 +8,26 @@
               "toml": {
                 "installed": {
                   "name": "0.7.1"
-                },
+                }, 
                 "source": "pypi"
               }
-            },
+            }, 
             "fingerprint": "d15a12caa52bf705d73843f4408e5fddd61fb328a7ecb8e20bddbf38d3f8f194"
-          },
+          }, 
           "updated": {
             "dependencies": {
               "toml": {
                 "installed": {
                   "name": "0.8.0"
-                },
+                }, 
                 "source": "pypi"
               }
-            },
+            }, 
             "fingerprint": "71f4bf263e5eac0766e7762c1951afcd1837cb4c283b5389a6aaac523bd44f49"
           }
         }
       }
-    },
+    }, 
     "metadata": {
       "foo": "bar"
     }

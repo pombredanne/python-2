@@ -67,7 +67,6 @@ def act():
             # and wasn't prefixed already
             if re.match('^\d', version_to_update_to):
                 version_to_update_to = '==' + version_to_update_to
-                manifest_data['updated']['dependencies'][dependency_name]['constraint'] = version_to_update_to
 
             dependency = [x for x in manifest.dependencies() if x.key == dependency_name][0]
             updated_content = manifest.updater(
