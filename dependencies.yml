@@ -5,6 +5,9 @@ collectors:
 
 - type: dockerfile
   path: Dockerfile
+  manifest_updates:
+    actors:
+    - versions_regex: "^3\.\d\.\d-alpine$"
 
 - type: python
   path: Pipfile
