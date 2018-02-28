@@ -7,7 +7,7 @@ collectors:
   path: Dockerfile
   manifest_updates:
     actors:
-    - versions_regex: '^3\.\d\.\d-alpine$'
+    - versions: L.Y.Y-alpine
 
 - type: python
   path: Pipfile
