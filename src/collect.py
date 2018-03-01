@@ -24,7 +24,7 @@ def collect():
         print('Collecting contents of {filename}:'.format(filename=manifest.filename))
         print(manifest.content)
 
-        output['manifests'][manifest.path] = { 'current': { 'dependencies': manifest.dio_dependencies() } }
+        output['manifests'][manifest.filename] = { 'current': { 'dependencies': manifest.dio_dependencies() } }
 
         # Add any lockfiles for this manifest for later processing
         if manifest.lockfile:

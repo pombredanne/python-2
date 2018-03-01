@@ -1,26 +1,26 @@
 cases:
-- name: basic pip
+- name: basic_pip
   type: collector
   dockerfile: Dockerfile
   repo_contents: tests/collector/basic_pip/repo
   output_data_path: tests/collector/basic_pip/expected_output_data.json
   user_config:
     path: requirements-dev.txt
-- name: basic pipfile
+- name: basic_pipfile
   type: collector
   dockerfile: Dockerfile
   repo_contents: tests/collector/basic_pipfile/repo
   output_data_path: tests/collector/basic_pipfile/expected_output_data.json
   user_config:
     path: Pipfile
-- name: pipfile dev section
+- name: pipfile_dev_section
   type: collector
   dockerfile: Dockerfile
   repo_contents: tests/collector/pipfile_dev_section/repo
   output_data_path: tests/collector/pipfile_dev_section/expected_output_data.json
   user_config:
     path: Pipfile
-- name: pipfile ignore dev section
+- name: pipfile_ignore_dev_section
   type: collector
   dockerfile: Dockerfile
   repo_contents: tests/collector/pipfile_ignore_dev_section/repo
@@ -32,7 +32,7 @@ cases:
         - packages
       pipfilelock_sections:
         - default
-- name: pipfile transitive
+- name: pipfile_transitive
   type: collector
   dockerfile: Dockerfile
   repo_contents: tests/collector/pipfile_transitive/repo

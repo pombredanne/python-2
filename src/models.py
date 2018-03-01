@@ -26,21 +26,46 @@ class Manifest:
             self.type = self.REQUIREMENTS
             self.filewriter = dparse.updater.RequirementsTXTUpdater
 
-        with open(self.filename, 'r') as f:
-            self.content = f.read()
+        self._parse()
 
         self.conf = get_config_settings()
 
-    def has_lockfile(self):
-        return self.type in [self.PIPFILE,]
+
+    def _parse(self):
+        with open(self.filename, 'r') as f:
+            self.content = f.read()
+
+        self.parser = dparse.parse(content=self.content, path=self.filename)
+
+        if not self.parser.is_valid:
+            raise Exception('Unable to parse {filename}'.format(filename=self.filename))
+
+    @classmethod
+    def collect_manifests(cls, starting_path):
+        """
+        Recursively (if necessary) gather all the manifests referenced by the starting_path and return as list
+        :param starting_path:
+        :return:
+        """
+        manifests = []
+        m = Manifest(starting_path)
+        manifests.append(m)
+
+        # recursively call
+        files = m.parser.resolved_files
+        for file in files:
+            more_manifests = Manifest.collect_manifests(file)
+            manifests.extend(more_manifests)
+        return manifests
+
+    @property
+    def lockfile(self):
+        if self.type == self.PIPFILE:
+            return LockFile('Pipfile.lock')
+        return None
 
     def raw_dependencies(self):
-        manifest_file = dparse.parse(content=self.content, path=self.filename)
-
-        if not manifest_file.is_valid:
-            raise Exception(f'Unable to parse {self.filename}')
-
-        return manifest_file.dependencies
+        return self.parser.dependencies
 
     def dependencies(self):
         if self.type == self.PIPFILE:
@@ -97,12 +122,12 @@ class LockFile(Manifest):
             if dep:
                 cmd_line = "pipenv update --clear {dep}".format(dep=dep)
             else:
-                cmd_line = "pipenv update --clear".format(dep=dep)
+                cmd_line = "pipenv update --clear"
             print(cmd_line)
             cmd = delegator.run(cmd_line)
             print(cmd.out)
-            with open(self.filename, 'r') as f:
-                self.content = f.read()
+
+            self._parse()
 
     def dio_dependencies(self, direct_dependencies=None):
         "Return dependencies.io formatted list of lockfile dependencies"

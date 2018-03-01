@@ -1,5 +1,5 @@
 cases:
-- name: Without pip freeze
+- name: Without_pip_freeze
   type: actor
   dockerfile: Dockerfile
   repo_contents: tests/actor/basic_pip/repo
@@ -9,7 +9,7 @@ cases:
     - |
         git checkout deps/update-0 && \
         diff -x '.git' ${CWD}/tests/actor/basic_pip/repo_final/ ./
-- name: Basic Pipfile
+- name: Basic_Pipfile
   type: actor
   dockerfile: Dockerfile
   repo_contents: tests/actor/basic_pipfile/repo
@@ -19,7 +19,7 @@ cases:
     - |
         git checkout deps/update-0 && \
         diff -x '.git' ${CWD}/tests/actor/basic_pipfile/repo_final/ ./
-- name: basic pipfile.lock
+- name: basic_pipfile.lock
   type: actor
   dockerfile: Dockerfile
   repo_contents: tests/actor/basic_pipfile.lock/repo
@@ -29,7 +29,7 @@ cases:
   #   - |
   #       git checkout deps/update-0 && \
   #       diff -x '.git' ${CWD}/tests/actor/basic_pipfile.lock/repo_final/ ./
-- name: pipfile.lock dev section
+- name: pipfile.lock_dev_section
   type: actor
   dockerfile: Dockerfile
   repo_contents: tests/actor/pipfile_dev_section.lock/repo
