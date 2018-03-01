@@ -10,50 +10,51 @@ from utils import write_json_to_temp_file
 def collect():
 
     # The first argument should be the manifest file
-    manifest_path = sys.argv[1]
+    manifest_starting_path = sys.argv[1]
 
-    manifest = Manifest(manifest_path)
-    print(f'Collecting contents of {manifest_path}:')
-    print(manifest.content)
+    manifests = Manifest.collect_manifests(manifest_starting_path)  # potentially recursive collection exposed as list
 
     # Manifest Processing
     output = {
-        'manifests': {
-            manifest_path: {
-                'current': {
-                    'dependencies': manifest.dio_dependencies()
-                }
-            }
-        }
+        'manifests': {}
     }
+    lockfiles = []
+    direct_deps = []
+    for manifest in manifests:
+        print('Collecting contents of {filename}:'.format(filename=manifest.filename))
+        print(manifest.content)
+
+        output['manifests'][manifest.path] = { 'current': { 'dependencies': manifest.dio_dependencies() } }
+
+        # Add any lockfiles for this manifest for later processing
+        if manifest.lockfile:
+            lockfiles.append(manifest.lockfile)
+
+        # Record direct dependencies
+        direct_deps.extend([dep.key for dep in manifest.dependencies()])
+
     run(['deps', 'collect', write_json_to_temp_file(output)], check=True)
 
     # Lockfile Processing
-    if manifest.has_lockfile():
-        direct_deps = [dep.key for dep in manifest.dependencies()]
-        lockfile_filename = 'Pipfile.lock'
-        lockfile_path = os.path.join(os.path.dirname(manifest_path), lockfile_filename)
-        lockfile = LockFile(lockfile_path)
-        print(f'Collecting contents of {lockfile_filename}:')
+    lockfile_output = {
+        'lockfiles': { }
+    }
+    for lockfile in lockfiles:
+        print('Collecting contents of {filename}:'.format(filename=lockfile.filename))
         print(lockfile.content)
 
         current_fingerprint = lockfile.fingerprint()
         current_dependencies = lockfile.dio_dependencies(direct_dependencies=direct_deps)
-        lockfile_output = {
-            'lockfiles': {
-                lockfile_filename: {
-                    'current': {
-                        'fingerprint': current_fingerprint,
-                        'dependencies': current_dependencies,
-                    }
-                }
-            }
-        }
+        lockfile_output['lockfiles'][lockfile.filename] = { 'current': {
+                                                                'fingerprint': current_fingerprint,
+                                                                'dependencies': current_dependencies,
+                                                                }
+                                                            }
 
         lockfile.native_update()  # use the native tools to update the lockfile
 
         if current_fingerprint != lockfile.fingerprint():
-            lockfile_output['lockfiles'][lockfile_filename]['updated'] = {
+            lockfile_output['lockfiles'][lockfile.filename]['updated'] = {
                 'fingerprint': lockfile.fingerprint(),
                 'dependencies': lockfile.dio_dependencies(direct_dependencies=direct_deps),
             }
