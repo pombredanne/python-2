@@ -6,42 +6,42 @@
           "certifi": {
             "installed": {
               "name": "2018.1.18"
-            }, 
-            "is_transitive": true, 
+            },
+            "is_transitive": true,
             "source": "pypi"
-          }, 
+          },
           "chardet": {
             "installed": {
               "name": "3.0.4"
-            }, 
-            "is_transitive": true, 
+            },
+            "is_transitive": true,
             "source": "pypi"
-          }, 
+          },
           "idna": {
             "installed": {
               "name": "2.5"
-            }, 
-            "is_transitive": true, 
+            },
+            "is_transitive": true,
             "source": "pypi"
-          }, 
+          },
           "requests": {
             "installed": {
               "name": "2.18.1"
-            }, 
+            },
             "source": "pypi"
-          }, 
+          },
           "urllib3": {
             "installed": {
               "name": "1.21.1"
-            }, 
-            "is_transitive": true, 
+            },
+            "is_transitive": true,
             "source": "pypi"
           }
-        }, 
-        "fingerprint": "c428e3c0fb4b7174a97a791139e419d6a8eeb9a6d54be8a68ad409b56227d180"
+        },
+        "fingerprint": "sha256:e512f1416b4c29586b5683f9e3915c210aa659f7530e59b6ba9aabf9d5119798"
       }
     }
-  }, 
+  },
   "manifests": {
     "Pipfile": {
       "current": {
@@ -50,15 +50,15 @@
             "available": [
               {
                 "name": "2.18.2"
-              }, 
+              },
               {
                 "name": "2.18.3"
-              }, 
+              },
               {
                 "name": "2.18.4"
               }
-            ], 
-            "constraint": "<2.18.2", 
+            ],
+            "constraint": "<2.18.2",
             "source": "pypi"
           }
         }

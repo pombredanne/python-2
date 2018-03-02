@@ -144,8 +144,8 @@ class LockFile(Manifest):
 
     def fingerprint(self):
         if self.type == self.PIPFILE_LOCK:
-            # Pipfile.lock stores its own hash, so we will use that
-            # instead of computing our own.
+            # Pipfile.lock stores its own hash but it's of the Pipfile, so we
+            # need our own hash of the Pipfile.lock.
             #
             # If we compute our own (hashing the file) then we're likely to get
             # get misleading results since Pipfile.lock contains info about
@@ -153,9 +153,15 @@ class LockFile(Manifest):
             # to us (and between users/machines/etc.) so we can't rely on that
             # as the fingerprint for the update. If we did, we'd likely send
             # a bunch of updates that only change the meta info in Pipfile.lock.
+
+            # Thus we'll use just part of the Pipfile.lock contents -- everyting
+            # but the top-level "_meta" section.
             with open(self.filename, 'r') as f:
                 pipfile_data = json.load(f)
-                return pipfile_data['_meta']['hash']['sha256']
+            del(pipfile_data['_meta'])
+            sha = hashlib.sha256()
+            sha.update(json.dumps(pipfile_data).encode('utf8'))
+            return "sha256:{hexdigest}".format(hexdigest=sha.hexdigest())
 
         return super(LockFile, self).fingerprint()
 

@@ -6,30 +6,30 @@
           "current": {
             "dependencies": {
               "requests": {
-                "constraint": "==2.11.1", 
+                "constraint": "==2.11.1",
                 "source": "pypi"
-              }, 
+              },
               "tox": {
-                "constraint": "==2.6.0", 
+                "constraint": "==2.6.0",
                 "source": "pypi"
               }
             }
-          }, 
+          },
           "updated": {
             "dependencies": {
               "requests": {
-                "constraint": "==2.14.0", 
+                "constraint": "==2.14.0",
                 "source": "pypi"
-              }, 
+              },
               "tox": {
-                "constraint": "2.7.0", 
+                "constraint": "2.7.0",
                 "source": "pypi"
               }
             }
           }
         }
       }
-    }, 
+    },
     "metadata": {
       "foo": "bar"
     }
