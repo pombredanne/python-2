@@ -186,6 +186,27 @@
           }
         }
       }
+    },
+    "sub/requirements.txt": {
+      "current": {
+        "dependencies": {
+          "requests": {
+            "available": [
+              {
+                "name": "2.18.2"
+              },
+              {
+                "name": "2.18.3"
+              },
+              {
+                "name": "2.18.4"
+              }
+            ],
+            "constraint": "<2.18.2",
+            "source": "pypi"
+          }
+        }
+      }
     }
   }
 }
