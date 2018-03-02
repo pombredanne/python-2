@@ -8,38 +8,38 @@
               "delegator": {
                 "installed": {
                   "name": "0.0.2"
-                }, 
+                },
                 "source": "pypi"
-              }, 
+              },
               "toml": {
                 "installed": {
                   "name": "0.7.1"
-                }, 
+                },
                 "source": "pypi"
               }
-            }, 
+            },
             "fingerprint": "1cd816a6b9d42af56ad25fdf08da8beb6f54c9df1030f573bd303dc574b9f26c"
-          }, 
+          },
           "updated": {
             "dependencies": {
               "delegator": {
                 "installed": {
                   "name": "0.0.3"
-                }, 
+                },
                 "source": "pypi"
-              }, 
+              },
               "toml": {
                 "installed": {
                   "name": "0.8.0"
-                }, 
+                },
                 "source": "pypi"
               }
-            }, 
-            "fingerprint": "0c68d72ba1c2efb5a361ac8df8b302a8534937ed74bf8570005110d6de0b5b44"
+            },
+            "fingerprint": "sha256:b3ef2102cd97e59b7071796723aa3932dad337888ef71a1ef0bde3f4a599dd3c"
           }
         }
       }
-    }, 
+    },
     "metadata": {
       "foo": "bar"
     }

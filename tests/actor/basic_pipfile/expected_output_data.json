@@ -6,22 +6,22 @@
           "current": {
             "dependencies": {
               "toml": {
-                "constraint": "<0.7.0", 
+                "constraint": "<0.7.0",
                 "source": "pypi"
               }
             }
-          }, 
+          },
           "updated": {
             "dependencies": {
               "toml": {
-                "constraint": "<0.8.0", 
+                "constraint": "<0.8.0",
                 "source": "pypi"
               }
             }
           }
         }
       }
-    }, 
+    },
     "metadata": {
       "foo": "bar"
     }
