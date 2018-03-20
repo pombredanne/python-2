@@ -2,6 +2,9 @@ version: 2
 dependencies:
 
 - type: dependencies-component
+  settings:
+    github_labels:
+    - automerge
 
 - type: dockerfile
   path: Dockerfile
