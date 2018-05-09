@@ -17,6 +17,23 @@
           }
         },
         "fingerprint": "sha256:ebb4f54db258672cca6d98e1ce47c3c879ba8290a85a45a4d8ca346bf9c2295d"
+      },
+      "updated": {
+        "dependencies": {
+          "delegator": {
+            "installed": {
+              "name": "0.0.2"
+            },
+            "source": "pypi"
+          },
+          "toml": {
+            "installed": {
+              "name": "0.7.1"
+            },
+            "source": "pypi"
+          }
+        },
+        "fingerprint": "sha256:77a2fa2a0a282ddd2ffe7e0f4fb91fbd1e630089d4d0a452c57a6f4d441d57c4"
       }
     }
   },

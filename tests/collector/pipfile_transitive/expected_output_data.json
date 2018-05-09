@@ -39,6 +39,45 @@
           }
         },
         "fingerprint": "sha256:e512f1416b4c29586b5683f9e3915c210aa659f7530e59b6ba9aabf9d5119798"
+      },
+      "updated": {
+        "dependencies": {
+          "certifi": {
+            "installed": {
+              "name": "2018.4.16"
+            },
+            "is_transitive": true,
+            "source": "pypi"
+          },
+          "chardet": {
+            "installed": {
+              "name": "3.0.4"
+            },
+            "is_transitive": true,
+            "source": "pypi"
+          },
+          "idna": {
+            "installed": {
+              "name": "2.5"
+            },
+            "is_transitive": true,
+            "source": "pypi"
+          },
+          "requests": {
+            "installed": {
+              "name": "2.18.1"
+            },
+            "source": "pypi"
+          },
+          "urllib3": {
+            "installed": {
+              "name": "1.21.1"
+            },
+            "is_transitive": true,
+            "source": "pypi"
+          }
+        },
+        "fingerprint": "sha256:79148aae0a94f19158ba5186586f47a1cf88ebe56609d1ff47dac0777b99f00d"
       }
     }
   },
