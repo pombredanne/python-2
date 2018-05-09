@@ -97,7 +97,7 @@ class LockFile(Manifest):
             if dep:
                 cmd_line = "pipenv update --clear {dep}".format(dep=dep)
             else:
-                cmd_line = "pipenv update --clear".format(dep=dep)
+                cmd_line = "pipenv update --clear"
             print(cmd_line)
             cmd = delegator.run(cmd_line)
             print(cmd.out)
