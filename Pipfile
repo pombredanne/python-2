@@ -1,5 +1,4 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
@@ -8,11 +7,8 @@ name = "pypi"
 python_version = '3.6'
 
 [packages]
-
 dparse = {git = "https://github.com/pyupio/dparse", editable = true, ref = "07b6912969db8b86b78f94fa634f0b3e05724fc4"}
 pipenv = "*"
 delegator = "*"
 
-
 [dev-packages]
-
