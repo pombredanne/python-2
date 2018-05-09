@@ -1,7 +1,7 @@
 import hashlib
 
 import os
-import pip
+import pip._internal
 import json
 
 from dparse import updater
@@ -144,7 +144,7 @@ class LockFile(Manifest):
 def get_available_versions_for_dependency(name, specs):
     # This uses the native pip library to do the package resolution
     # TODO figure out how to do this without mocking all these useless things...
-    list_command = pip.commands.ListCommand()
+    list_command = pip._internal.commands.ListCommand()
     options, args = list_command.parse_args([])
     with list_command._build_session(options) as session:
         index_urls = [options.index_url] + options.extra_index_urls
