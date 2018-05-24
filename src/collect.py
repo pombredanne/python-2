@@ -9,6 +9,8 @@ from utils import write_json_to_temp_file
 
 def collect():
 
+    run(['deps', 'hook', 'before_update'], check=True)
+
     # The first argument should be the manifest file
     manifest_starting_path = sys.argv[1]
 
