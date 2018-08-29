@@ -126,7 +126,9 @@ class LockFile(Manifest):
             print(cmd_line)
             cmd = delegator.run(cmd_line)
             print(cmd.out)
-
+            print(cmd.err)
+            if cmd.return_code != 0:
+                raise Exception('pipenv update command failed')
             self._parse()
 
     def dio_dependencies(self, direct_dependencies=None):
