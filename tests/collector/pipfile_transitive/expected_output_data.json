@@ -44,7 +44,7 @@
         "dependencies": {
           "certifi": {
             "installed": {
-              "name": "2018.4.16"
+              "name": "2018.8.24"
             },
             "is_transitive": true,
             "source": "pypi"
@@ -77,7 +77,7 @@
             "source": "pypi"
           }
         },
-        "fingerprint": "sha256:79148aae0a94f19158ba5186586f47a1cf88ebe56609d1ff47dac0777b99f00d"
+        "fingerprint": "sha256:a51aba5efeee388339a35908d8edb2552cf716df4d5b2826da23a0197cf8a9a2"
       }
     }
   },
@@ -95,6 +95,12 @@
               },
               {
                 "name": "2.18.4"
+              },
+              {
+                "name": "2.19.0"
+              },
+              {
+                "name": "2.19.1"
               }
             ],
             "constraint": "<2.18.2",
