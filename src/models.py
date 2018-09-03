@@ -1,12 +1,11 @@
 import hashlib
-
 import os
 import pip._internal
 import json
 
-from dparse import updater
-import dparse
-import delegator
+import dparse.updater
+
+from utils import run
 
 
 class Manifest:
@@ -29,7 +28,6 @@ class Manifest:
         self._parse()
 
         self.conf = get_config_settings()
-
 
     def _parse(self):
         with open(self.filename, 'r') as f:
@@ -123,12 +121,7 @@ class LockFile(Manifest):
                 cmd_line = "pipenv update --clear {dep}".format(dep=dep)
             else:
                 cmd_line = "pipenv update --clear"
-            print(cmd_line)
-            cmd = delegator.run(cmd_line)
-            print(cmd.out)
-            print(cmd.err)
-            if cmd.return_code != 0:
-                raise Exception('pipenv update command failed')
+            run(cmd_line)
             self._parse()
 
     def dio_dependencies(self, direct_dependencies=None):
@@ -195,7 +188,6 @@ def get_available_versions_for_dependency(name, specs):
     return [str(x) for x in in_order]
 
 
-
 def get_config_settings():
     """"Parse configuration settings from the environment variables set in the container"""
     conf = {}
@@ -219,5 +211,9 @@ def get_config_settings():
     SETTING_PIPFILELOCK_SECTIONS = os.getenv("SETTING_PIPFILELOCK_SECTIONS", '["default", "develop"]')
     print("SETTING_PIPFILELOCK_SECTIONS = {setting}".format(setting=SETTING_PIPFILELOCK_SECTIONS))
     conf['pipfilelock_sections'] = json.loads(SETTING_PIPFILELOCK_SECTIONS)
+
+    PYTHON_VERSION = os.getenv("SETTING_PYTHON_VERSION", None)
+    print("SETTING_PYTHON_VERSION = {setting}".format(setting=PYTHON_VERSION))
+    conf['python_version'] = PYTHON_VERSION
 
     return conf

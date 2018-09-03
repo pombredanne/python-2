@@ -1,22 +1,16 @@
 import re
-import os
 import json
-from subprocess import run
-import tempfile
 
-from models import Manifest, LockFile, get_config_settings
-from utils import write_json_to_temp_file
+from models import Manifest, LockFile
+from utils import write_json_to_temp_file, run
 
 
 def act():
-    # Get any special configuration passed in from the configuration yaml as ENV vars
-    conf = get_config_settings()
-
     with open('/dependencies/input_data.json', 'r') as f:
         data = json.load(f)
 
     # create a new branch for this update
-    run(['deps', 'branch'], check=True)
+    run('deps branch')
 
     for lockfile_path, lockfile_data in data.get('lockfiles', {}).items():
         # If "lockfiles" are present then it means that there are updates to
@@ -51,8 +45,7 @@ def act():
         lockfile_data['updated']['fingerprint'] = lockfile.fingerprint()
 
         # 2) Add and commit the changes
-        run(['deps', 'commit', '-m', 'Update ' + lockfile_path, lockfile_path], check=True)
-
+        run('deps commit -m "Update {}" {}'.format(lockfile_path, lockfile_path))
 
     for manifest_path, manifest_data in data.get('manifests', {}).items():
         for dependency_name, updated_dependency_data in manifest_data['updated']['dependencies'].items():
@@ -65,7 +58,7 @@ def act():
 
             # automatically prefix it with == if it looks like it is an exact version
             # and wasn't prefixed already
-            if re.match('^\d', version_to_update_to):
+            if re.match(r'^\d', version_to_update_to):
                 version_to_update_to = '==' + version_to_update_to
 
             dependency = [x for x in manifest.dependencies() if x.key == dependency_name][0]
@@ -81,6 +74,6 @@ def act():
             with open(manifest_path, 'w+') as f:
                 f.write(updated_content)
 
-            run(['deps', 'commit', '-m', 'Update {} from {} to {}'.format(dependency_name, installed, updated_dependency_data['constraint']), manifest_path], check=True)
+            run('deps commit -m "Update {} from {} to {}" {}'.format(dependency_name, installed, updated_dependency_data['constraint'], manifest_path))
 
-    run(['deps', 'pullrequest', write_json_to_temp_file(data)], check=True)
+    run('deps pullrequest {}'.format(write_json_to_temp_file(data)))
