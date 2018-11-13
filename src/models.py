@@ -165,7 +165,11 @@ def get_available_versions_for_dependency(name, specs):
     # This uses the native pip library to do the package resolution
     # TODO figure out how to do this without mocking all these useless things...
     list_command = pip._internal.commands.ListCommand()
-    options, args = list_command.parse_args([])
+    pip_args = json.loads(os.getenv("SETTING_PIP_ARGS", "[]"))
+    options, args = list_command.parse_args(pip_args)
+
+    warn_on_missing_versions = json.loads(os.getenv("SETTING_WARN_ON_MISSING_VERSIONS", "false"))
+
     with list_command._build_session(options) as session:
         index_urls = [options.index_url] + options.extra_index_urls
         if options.no_index:
@@ -178,6 +182,14 @@ def get_available_versions_for_dependency(name, specs):
 
         filtered_candidate_versions = list(specs.filter(all_versions))
         filtered_candidates = [c for c in all_candidates if str(c.version) in filtered_candidate_versions]
+
+        if not filtered_candidates:
+            msg = f"No versions found for {name} matching spec {specs}"
+            if warn_on_missing_versions:
+                print(f"Warning: {msg}")
+                return []
+            else:
+                raise Exception(msg)
 
         # this is the highest version in the specified range, everything above this is outside our constraints
         best_candidate = max(filtered_candidates, key=finder._candidate_sort_key)

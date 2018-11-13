@@ -14,15 +14,15 @@ dependencies:
 
 ### Pipfile Support
 
-In addition to the standard settings for actors and collectors, this module has some specific configuration available 
-when using a Pipfile and Pipfile.lock as the dependency source. 
+In addition to the standard settings for actors and collectors, this module has some specific configuration available
+when using a Pipfile and Pipfile.lock as the dependency source.
 
-Pipfiles are expected to have all the requirements of a project for development, production, testing, etc. 
+Pipfiles are expected to have all the requirements of a project for development, production, testing, etc.
 listed in a single file, unlike the requirements.txt convention where production and development requirements are
 often split into different files.  Thus, it is often desirable to have the ability to configure which sections of the
 file should be considered for management by dependencies.io.  The default will be to include both of the standard
-sections of the Pipfile and Pipfile.lock.  These settings can be configured to eliminate a section or to possibly add a 
-custom section name.  It is possible to change the settings for either Pipfile or Pipfile.lock independently, but in all 
+sections of the Pipfile and Pipfile.lock.  These settings can be configured to eliminate a section or to possibly add a
+custom section name.  It is possible to change the settings for either Pipfile or Pipfile.lock independently, but in all
 likelihood they will be changed in tandem.
 
 
@@ -38,6 +38,13 @@ dependencies:
     - packages
     pipfilelock_sections:
     - default
+    pip_args:
+    - "--extra-index-url"
+    - "{our_private_index_url}"
+    # If versions matching your spec are not found, it errors by default.
+    # You might enable this setting if you have private packages that you
+    # aren't trying to track yet, and want to convert those errors to warnings.
+    warn_on_missing_versions: false
 ```
 
 There are also [additional settings available](https://github.com/dependencies-io/deps#dependenciesyml) for
