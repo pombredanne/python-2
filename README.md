@@ -10,6 +10,19 @@ version: 2
 dependencies:
 - type: python
   path: requirements.txt
+  # All settings are optional
+  settings:
+    pipfile_sections:
+    - packages
+    pipfilelock_sections:
+    - default
+    pip_args:
+    - "--extra-index-url"
+    - "{our_private_index_url}"
+    # If versions matching your spec are not found, it errors by default.
+    # You might enable this setting if you have private packages that you
+    # aren't trying to track yet, and want to convert those errors to warnings.
+    warn_on_missing_versions: false
 ```
 
 ### Pipfile Support
@@ -38,13 +51,6 @@ dependencies:
     - packages
     pipfilelock_sections:
     - default
-    pip_args:
-    - "--extra-index-url"
-    - "{our_private_index_url}"
-    # If versions matching your spec are not found, it errors by default.
-    # You might enable this setting if you have private packages that you
-    # aren't trying to track yet, and want to convert those errors to warnings.
-    warn_on_missing_versions: false
 ```
 
 There are also [additional settings available](https://github.com/dependencies-io/deps#dependenciesyml) for
