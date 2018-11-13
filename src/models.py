@@ -184,9 +184,9 @@ def get_available_versions_for_dependency(name, specs):
         filtered_candidates = [c for c in all_candidates if str(c.version) in filtered_candidate_versions]
 
         if not filtered_candidates:
-            msg = f"No versions found for {name} matching spec {specs}"
+            msg = "No versions found for {} matching spec {}".format(name, specs)
             if warn_on_missing_versions:
-                print(f"Warning: {msg}")
+                print("Warning: {}".format(msg))
                 return []
             else:
                 raise Exception(msg)
