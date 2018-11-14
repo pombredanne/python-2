@@ -12,6 +12,8 @@ dependencies:
   path: requirements.txt
   # All settings are optional
   settings:
+    # specify an exact version of python to use, if you need something other than the latest 3.7
+    python_version: "3.5.6"
     pipfile_sections:
     - packages
     pipfilelock_sections:
