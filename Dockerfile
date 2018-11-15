@@ -33,9 +33,8 @@ ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 RUN pip install --upgrade pip
 RUN pip install pipenv
-# when running pipenv from within pipenv, use a new environment (ours vs user)
-ENV PIPENV_IGNORE_VIRTUALENVS=1
 ADD Pipfile Pipfile.lock /usr/src/app/
+RUN pipenv install --system
 
 # add the pullrequest utility to easily create pull requests on different git hosts
 ENV DEPS_VERSION=2.4.1
@@ -55,9 +54,6 @@ ENV PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
 # install these common versions ahead of time
 RUN pyenv install 3.6.6
 RUN pyenv install 2.7.15
-
-# install for the default version (system 3.7)
-RUN pipenv sync
 
 RUN git config --global user.email "bot@dependencies.io"
 RUN git config --global user.name "Dependencies.io Bot"

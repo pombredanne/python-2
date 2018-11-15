@@ -7,13 +7,14 @@ if [[ ${SETTING_PYTHON_VERSION+x} ]]; then
 
   # install using the requested python version
   pyenv install --skip-existing $PYENV_VERSION
+  # make sure we have our requirements installed for this python version
   pipenv sync --python $PYENV_VERSION
+  source $(pipenv --venv)/bin/activate
 else
   echo "Using default python version"
 fi
 
 pyenv versions
-source $(pipenv --venv)/bin/activate
 python --version
 
 cd /repo
