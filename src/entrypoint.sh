@@ -5,7 +5,8 @@ if [[ ${SETTING_PYTHON_VERSION+x} ]]; then
   export PYENV_VERSION=$SETTING_PYTHON_VERSION
   echo $PYENV_VERSION
 
-  # install using the requested python version (will install it automatically)
+  # install using the requested python version
+  pyenv install --skip-existing $PYENV_VERSION
   pipenv sync --python $PYENV_VERSION
 else
   echo "Using default python version"
