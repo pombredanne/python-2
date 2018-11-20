@@ -14,7 +14,8 @@ RUN apk add --no-cache --update \
     sqlite-dev \
     libffi-dev \
     zlib-dev \
-    && update-ca-certificates && rm -rf /var/cache/apk/*
+    postgresql-dev \
+    && update-ca-certificates
 
 ENV LIBRARY_PATH=/lib:/usr/lib
 
