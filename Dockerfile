@@ -9,22 +9,16 @@ RUN apk add --no-cache --update \
     bzip2-dev \
     linux-headers \
     ncurses-dev \
-    openssl \
-    openssl-dev \
+    libressl-dev \
     readline-dev \
     sqlite-dev \
     libffi-dev \
+    zlib-dev \
     && update-ca-certificates && rm -rf /var/cache/apk/*
 
-# add a non-root user and give them ownership
-RUN adduser -D -u 9000 app && \
-    # repo
-    mkdir /repo && \
-    chown -R app:app /repo && \
-    # app code
-    mkdir -p /usr/src/app && \
-    chown -R app:app /usr/src/app
+ENV LIBRARY_PATH=/lib:/usr/lib
 
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # install an initial version of pipenv, which Pipfile.lock will overwite with
@@ -42,9 +36,6 @@ RUN wget https://github.com/dependencies-io/deps/releases/download/${DEPS_VERSIO
     mkdir deps && \
     tar -zxvf deps_${DEPS_VERSION}_linux_amd64.tar.gz -C deps && \
     ln -s /usr/src/app/deps/deps /usr/local/bin/deps
-
-# run everything from here on as non-root
-USER app
 
 # install pyenv for managing more python versions and switching
 RUN git clone --depth 1 https://github.com/pyenv/pyenv.git /usr/src/app/pyenv
