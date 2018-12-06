@@ -2,6 +2,7 @@ FROM python:3.7.1-alpine
 
 RUN apk add --no-cache --update \
     bash \
+    curl \
     build-base \
     patch \
     ca-certificates \
@@ -32,11 +33,8 @@ ADD Pipfile Pipfile.lock /usr/src/app/
 RUN pipenv install --system
 
 # add the pullrequest utility to easily create pull requests on different git hosts
-ENV DEPS_VERSION=2.4.1
-RUN wget https://github.com/dependencies-io/deps/releases/download/${DEPS_VERSION}/deps_${DEPS_VERSION}_linux_amd64.tar.gz && \
-    mkdir deps && \
-    tar -zxvf deps_${DEPS_VERSION}_linux_amd64.tar.gz -C deps && \
-    ln -s /usr/src/app/deps/deps /usr/local/bin/deps
+ENV DEPS_VERSION=2.5.0-beta
+RUN curl https://www.dependencies.io/install.sh | bash -s -- -b /usr/local/bin $DEPS_VERSION
 
 # install pyenv for managing more python versions and switching
 RUN git clone --depth 1 https://github.com/pyenv/pyenv.git /usr/src/app/pyenv
@@ -47,8 +45,8 @@ ENV PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
 RUN pyenv install 3.6.6
 RUN pyenv install 2.7.15
 
-RUN git config --global user.email "bot@dependencies.io"
-RUN git config --global user.name "Dependencies.io Bot"
+RUN git config --system user.email "bot@dependencies.io"
+RUN git config --system user.name "Dependencies.io Bot"
 
 ADD src/ /usr/src/app/
 
