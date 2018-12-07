@@ -18,4 +18,4 @@ install:
 
 script:
 - dependencies test -k $TEST_TYPE --loose-output-data-comparison
-- ./bin/deps dev test --filter-type $TEST_TYPE --loose-output-data-comparison
+- ./bin/deps dev test --filter-type $TEST_TYPE --loose-output-data-comparison --verbose
