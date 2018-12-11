@@ -33,7 +33,7 @@ ADD Pipfile Pipfile.lock /usr/src/app/
 RUN pipenv install --system
 
 # add the pullrequest utility to easily create pull requests on different git hosts
-ENV DEPS_VERSION=2.5.0-beta
+ENV DEPS_VERSION=2.5.0-beta.2
 RUN curl https://www.dependencies.io/install.sh | bash -s -- -b /usr/local/bin $DEPS_VERSION
 
 # install pyenv for managing more python versions and switching
